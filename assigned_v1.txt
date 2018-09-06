@@ -1,0 +1,98 @@
+Title: Washington State Indigency Calculator
+Author: Will Bean
+Before:<link rel="stylesheet" type="text/css" href="https://suffolklitlab.org/howto/qna/style/style.css">
+<div id="icon" style="background-size: 110px 90px;background-image: url('https://suffolklitlab.org/howto/qna/images/maxheadroom.gif');"></div>
+<h2 style="text-align:center;">Washington State Indigency Calculator</h2>
+<p><b>This is a <a href="http://www.codingthelaw.org/">class project</a>. You should not rely on it as a source of legal information. It is likely incomplete.</b></p>
+
+<p>Please answer the following questions to see if the defendant qualifies for appointment of counsel.</p>
+
+<p>To determine whether a defendant is indigent under Washington state law, one must follow the <a href="http://app.leg.wa.gov/rcw/default.aspx?cite=10.101.010" target="_blank">appropriate statute.</a> </p>
+
+Q(pay): Is the defendant able to pay the cost of retaining private counsel for representation on the matter before the court?
+A: Yes
+	Q(1.1):GOTO:nope
+A: No
+	Q(1.2):GOTO:contrib
+
+Q(contrib): Is the defendant able to pay SOME BUT NOT ALL of the cost of retaining private counsel for representation on the matter before the court?
+A: Yes
+	Q(2.1):GOTO:y_contrib
+A: No
+	Q(2.2):GOTO:house
+
+Q(house): How many people are in their household?
+A: 1
+	Q(3.1): Is the defendant's income (as defined <a href="http://app.leg.wa.gov/rcw/default.aspx?cite=10.101.010" target="_blank">here</a>) less than, or equal to, $27,315.00 after taxes?
+	A: Yes
+		Q(3.1.1):GOTO:yep
+	A: No
+		Q(3.1.2):GOTO:assist
+A: 2
+	Q(3.2): Is the defendant's income (as defined <a href="http://app.leg.wa.gov/rcw/default.aspx?cite=10.101.010" target="_blank">here</a>) less than, or equal to, $37,035.00 after taxes?
+	A: Yes
+		Q(3.2.1):GOTO:yep
+	A: No
+		Q(3.2.2):GOTO:assist
+A: 3
+	Q(3.3): Is the defendant's income (as defined <a href="http://app.leg.wa.gov/rcw/default.aspx?cite=10.101.010" target="_blank">here</a>) less than, or equal to, $46,755.00 after taxes?
+	A: Yes
+		Q(3.3.1):GOTO:yep
+	A: No
+		Q(3.3.2):GOTO:assist
+A: 4
+	Q(3.4): Is the defendant's income (as defined <a href="http://app.leg.wa.gov/rcw/default.aspx?cite=10.101.010" target="_blank">here</a>) less than, or equal to, $56,475.00 after taxes?
+	A: Yes
+		Q(3.4.1):GOTO:yep
+	A: No
+		Q(3.4.2):GOTO:assist
+A: More than 4
+	Q(3.5):GOTO:more
+
+Q(more): How many people are in their household?
+A: 5
+	Q(4.1): Is the defendant's income (as defined <a href="http://app.leg.wa.gov/rcw/default.aspx?cite=10.101.010" target="_blank">here</a>) less than, or equal to, $66,195.00 after taxes?
+	A: Yes
+		Q(4.1.1):GOTO:yep
+	A: No
+		Q(4.1.2):GOTO:assist
+A: 6
+	Q(4.2): Is the defendant's income (as defined <a href="http://app.leg.wa.gov/rcw/default.aspx?cite=10.101.010" target="_blank">here</a>) less than, or equal to, $75,915.00 after taxes?
+	A: Yes
+		Q(4.2.1):GOTO:yep
+	A: No
+		Q(4.2.2):GOTO:assist
+A: 7
+	Q(4.3): Is the defendant's income (as defined <a href="http://app.leg.wa.gov/rcw/default.aspx?cite=10.101.010" target="_blank">here</a>) less than, or equal to, $85,635.00 after taxes?
+	A: Yes
+		Q(4.3.1):GOTO:yep
+	A: No
+		Q(4.3.2):GOTO:assist
+A: 8
+	Q(4.4): Is the defendant's income (as defined <a href="http://app.leg.wa.gov/rcw/default.aspx?cite=10.101.010" target="_blank">here</a>) less than, or equal to, $95,355.00 after taxes?
+	A: Yes
+		Q(4.4.1):GOTO:yep
+	A: No
+		Q(4.4.2):GOTO:assist
+A: More than 8
+	Q(4.5): Is the defendant's income (as defined <a href="http://app.leg.wa.gov/rcw/default.aspx?cite=10.101.010" target="_blank">here</a>) less than, or equal to, $9,720 times the number of household members after taxes?
+	A: Yes
+		Q(4.5.1):GOTO:yep
+	A: No
+		Q(4.5.2):GOTO:assist
+
+Q(assist): Is the defendant currently receiving any of the following types of public assistance: Temporary assistance for needy families, aged, blind, or disabled assistance benefits, medical care services under <a href="http://app.leg.wa.gov/rcw/default.aspx?cite=74.09.035" target="_blank">RCW 74.09.035</a>, pregnant women assistance benefits, poverty-related veterans' benefits, food stamps or food stamp benefits transferred electronically, refugee resettlement benefits, medicaid, or supplemental security income?
+A: Yes
+	Q(5.1):GOTO:yep
+A: No
+	Q(5.2):GOTO:commit
+
+Q(commit): At any time during the court proceeding, was the defendant involuntarily committed to a public mental health facility?
+A: Yes
+	Q(6.1):GOTO:yep
+A: No
+	Q(6.2):GOTO:nope
+
+Q(yep): This defendant is indigent as defined by the state of Washington and, therefore, does qualify for state-appointed counsel.
+Q(y_contrib): This defendant is indigent and able to contribute as defined by the state of Washington.
+Q(nope): This defendant is not indigent as defined by the state of Washington and, therefore, does not qualify for state-appointed counsel.
