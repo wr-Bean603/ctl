@@ -1,6 +1,7 @@
 Title: Washington State Indigency Calculator
 Author: Will Bean
-Before:<link rel="stylesheet" type="text/css" href="https://suffolklitlab.org/howto/qna/style/style.css">
+Before:<input type="hidden" name="name" value="Indigency Determination"/>
+<link rel="stylesheet" type="text/css" href="https://suffolklitlab.org/howto/qna/style/style.css">
 <div id="icon" style="background-size: 110px 87px;background-image: url('https://wr-Bean603.github.io/ctl/flag.png');"></div>
 <h2 style="text-align:center;">Washington State Indigency Calculator</h2>
 <p><b>This is a <a href="http://www.codingthelaw.org/">class project</a>. You should not rely on it as a source of legal information. It is likely incomplete.</b></p>
