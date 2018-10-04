@@ -1,0 +1,88 @@
+Title: Washington State Indigency Calculator
+Author: Will Bean
+Before:<link rel="stylesheet" type="text/css" href="https://suffolklitlab.org/howto/qna/style/style.css">
+<div id="icon" style="background-size: 110px 87px;background-image: url('https://wr-Bean603.github.io/ctl/flag.png');"></div>
+<h2 style="text-align:center;">Washington State Indigency Calculator</h2>
+<p><b>This is a <a href="http://www.codingthelaw.org/">class project</a>. You should not rely on it as a source of legal information. It is likely incomplete.</b></p>
+
+<p>Please answer the following questions to see if the defendant qualifies for appointment of counsel.</p>
+
+<p>To determine whether a defendant is indigent under Washington state law, one must follow the <a href="http://app.leg.wa.gov/rcw/default.aspx?cite=10.101.010" target="_blank">appropriate statute.</a> </p>
+<script src="https://wr-Bean603.github.io/ctl/fedpov.js"></script>
+
+Q(house):How many people are in their household?
+X:number
+	Q(income):What is the defendant's income?
+	X:number
+		Q(1.1.1):GOTO:assist
+	A[javascript:alert('Income is defined as salary, wages, interest, dividends, and other earnings which are reportable for federal income tax purposes, and cash payments such as reimbursements received from pensions, annuities, social security, and public assistance programs. It includes any contribution received from any family member or other person who is domiciled in the same residence as the defendant and who is helping to defray the basic living costs of the defendant.');]:What is defined as income?
+		Q(1.1.2):GOTO:income
+		
+Q(assist):Is the defendant currently receiving any of the following types of public assistance: Temporary assistance for needy families, aged, blind, or disabled assistance benefits, medical care services under <a href="http://app.leg.wa.gov/rcw/default.aspx?cite=74.09.035" target="_blank">RCW 74.09.035</a>, pregnant women assistance benefits, poverty-related veterans' benefits, food stamps or food stamp benefits transferred electronically, refugee resettlement benefits, medicaid, or supplemental security income?
+A:Yes
+	Q(2.1):GOTO:commit
+A:No
+	Q(2.2):GOTO:commit
+
+Q(commit):At any time during the court proceeding, was the defendant involuntarily committed to a public mental health facility?
+A:Yes
+	Q(3.1):GOTO:pay
+A:No
+	Q(3.2):GOTO:pay
+
+Q(pay):Is the defendant able to pay the cost of retaining private counsel for representation on the matter before the court?
+A:Yes
+	Q(4.1):GOTO:nope
+A:No
+	Q(4.2):GOTO:contrib
+
+Q(contrib):Is the defendant able to pay SOME BUT NOT ALL of the cost of retaining private counsel for representation on the matter before the court?
+A:Yes
+	Q(5.1):GOTO:y_contrib
+A[javascript:if (fedpov(getvar('house'),getvar('income'),125)){ goto('yep') } else { goto('nope') } ]: No
+
+
+Q(yep):<input type="hidden" name="docx_uri" value="https://wr-bean603.github.io/ctl/indigent_wash_state.docx"/>This defendant is <b>INDIGENT</b> as defined by the state of Washington and, therefore, <b>does qualify for state-appointed counsel.</b> <br>Would you like to download a sheet with your answers from this interview?</br>
+A:[javascript:submit2('http://colarusso.pythonanywhere.com/','GET','','','','json_doc','_blank')]Yes
+	Q(6.1): Did that work?
+	A:Yes
+		Q(6.1.1):GOTO:end
+	A:No
+		Q(6.1.2):Would you like to try again?
+		A:Yes
+			Q(6.1.2.1):GOTO:yep
+		A:No
+			Q(6.1.2.2):GOTO:end
+A:No
+	Q(6.2):GOTO:end
+	
+Q(y_contrib):<input type="hidden" name="docx_uri" value="https://wr-bean603.github.io/ctl/indigent_contrib_wash_state.docx"/>This defendant is <b>INDIGENT AND ABLE TO CONTRIBUTE</b> as defined by the state of Washington. <br>Would you like to download a sheet with your answers from this interview?</br>
+A:[javascript:submit2('http://colarusso.pythonanywhere.com/','GET','','','','json_doc','_blank')]Yes
+	Q(7.1): Did that work?
+	A:Yes
+		Q(7.1.1):GOTO:end
+	A:No
+		Q(7.1.2):Would you like to try again?
+		A:Yes
+			Q(7.1.2.1):GOTO:y_contrib
+		A:No
+			Q(7.1.2.2):GOTO:end
+A:No
+	Q(7.2):GOTO:end
+
+
+Q(nope):<input type="hidden" name="docx_uri" value="https://wr-bean603.github.io/ctl/not_indigent_wash_state.docx"/>This defendant is <b>NOT INDIGENT</b> as defined by the state of Washington and, therefore, <b>does not qualify for state-appointed counsel.</b> <br>Would you like to download a sheet with your answers from this interview?</br>
+A:[javascript:submit2('http://colarusso.pythonanywhere.com/','GET','','','','json_doc','_blank')]Yes
+	Q(8.1): Did that work?
+	A:Yes
+		Q(8.1.1):GOTO:end
+	A:No
+		Q(8.1.2):Would you like to try again?
+		A:Yes
+			Q(8.1.2.1):GOTO:nope
+		A:No
+			Q(8.1.2.2):GOTO:end
+A:No
+	Q(8.2):GOTO:end
+
+Q(end):We're all done. Thank you!
