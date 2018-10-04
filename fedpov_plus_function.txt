@@ -1,0 +1,1 @@
+A[javascript:if (fedpov(getvar('house'),getvar('income'),125)){ goto('yep') } else if (getvar('assist') = "Yes"){ goto('yep') } else if (getvar('commit') = "Yes"){ goto('yep') } else { goto('nope') } ]: No
