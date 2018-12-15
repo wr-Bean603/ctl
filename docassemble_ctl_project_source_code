@@ -1,0 +1,232 @@
+metadata:
+  title: Hoey Law Medicare Document Automation
+  short title: Created by Will Bean
+---
+images:
+  'HL_logo': HL_logo.png
+---
+mandatory: True
+question: |
+  Welcome to the Hoey Law Medicare Document Automation tool.
+subquestion: |
+  This is a tool that is meant to help automate filling out various forms that contain similar/identical information throughout litigation to preserve accuracy. This tool is only to be used by Hoey Law employees.
+  
+  Who is using the tool?
+fields:
+  - Employee: employee
+    choices:
+      - David Hoey
+      - Richard Bromby
+      - Britain Thames
+      - Dan Landry
+      - Will Bean
+      - Lindsey Kelly
+      - Jake Sambito
+      - Janine Fortini
+---
+mandatory: True
+question: |
+  First, let's get some general information about the client.
+subquestion: |
+  **Be sure to watch your formatting and punctuation!**
+  
+  We will need the client's:
+  
+  1. Full Legal Name (Ex: John Earl Smith, or Estate of Jane Doe);
+  
+  2. Date of Birth; and
+  
+  3. Medicare Health Insurance Claim Number (Ex: 123-45-6789-A).
+fields:
+  - 'Name': client_name
+  - 'DOB': DOB_client
+    datatype: date
+  - 'HIC#': hic
+decoration: HL_logo
+---
+mandatory: True
+question: |
+  What sort of injury/injuries were sustained by the client? When did that injury occur?
+subquestion: |
+  Note: This should be the main injury that either brought about the lawsuit and/or caused the death of the client.
+  
+  Examples:
+  Hip fracture, femur fracture.
+  
+  Pneumonia, death.
+fields:
+  - 'Type of Injury/Injuries': injury
+  - 'Date of Injury': date_of_injury
+    datatype: date
+decoration: HL_logo
+---
+mandatory: True
+code: |
+  form_choice
+  if form_choice == 'Proof of Representation':
+    ending1
+  elif form_choice == 'Contested Medicare Charges Response':
+    ending2
+  elif form_choice == 'Request for Conditional Payment Letter':
+    ending3
+  elif form_choice == 'Final Settlement Detail Document':
+    ending4
+---
+mandatory: True
+question: |
+  What form would you like to prepare?
+fields:
+  - Form: form_choice
+    choices:
+      - Proof of Representation
+      - Contested Medicare Charges Response
+      - Request for Conditional Payment Letter
+      - Final Settlement Detail Document
+---
+question: |
+  What documents (if any) are to be enclosed with the Proof of Representation?
+fields:
+  - 'Death Certificate': death_cert
+    datatype: yesno
+  - 'Probate Decree': probate_check
+    datatype: yesno
+  - 'Retainer/Fee Agreement': retainer_check
+    datatype: yesno
+decoration: HL_logo
+---
+question: |
+  Your documents are ready!
+  
+  This is a school project for Coding the Law at Suffolk University Law School. You may address any questions about this program to Will Bean at lawclerk2@hoeylaw.com
+  
+  Thank you for using Docassemble.
+field: ending1 
+attachments:
+  - name: Medicare Proof of Representation Form
+    filename: Medicare_Proof_of_Representation
+    pdf template file: proof_of_rep.pdf
+    fields: 
+      - "client_name": ${ client_name }
+      - "retainer_check": ${ retainer_check }
+      - "probate_check": ${ probate_check }
+      - "death_cert": ${ death_cert }
+      - "HIC": ${ hic }
+      - "date_of_injury": ${ date_of_injury }
+  - name: Medicare Proof of Representation Letter
+    filename: Medicare_Proof_of_Representation_doc
+    docx template file: proof_of_rep_template.docx
+buttons:
+  - Exit: exit
+  - Restart: restart
+decoration: HL_logo
+---
+question: |
+  What are the contested charges, and when did you receive the Conditional Payment Letter?
+subquestion: |
+  Please type all charges in detail that you wish to contest and the reasons for contesting them.
+fields:
+  - 'Contested Charges': contested_charges
+    datatype: area
+  - 'Date Conditional Payment Letter was Received': date_CPL_received
+    datatype: date
+decoration: HL_logo
+---
+question: |
+  Your document is ready!
+  
+  This is a school project for Coding the Law at Suffolk University Law School. You may address any questions about this program to Will Bean at lawclerk1@hoeylaw.com
+  
+  Thank you for using Docassemble.
+field: ending2
+attachment:
+  - name: Medicare Contested Charges Response Letter
+    filename: Medicare_Contested_Charges_Response
+    docx template file: contested_charges_template.docx
+buttons:
+  - Exit: exit
+  - Restart: restart
+decoration: HL_logo
+---
+question: |
+  On what date did you receive the Rights and Responsibilities letter from Medicare?
+fields:
+  - 'Date R&R received': date_rr_received
+    datatype: date
+decoration: HL_logo
+---
+question: |
+  Your document is ready!
+  
+  This is a school project for Coding the Law at Suffolk University Law School. You may address any questions about this program to Will Bean at lawclerk1@hoeylaw.com
+  
+  Thank you for using Docassemble.
+field: ending3
+attachment:
+  - name: No Conditional Payment Letter
+    filename: No_Conditional_Payment_Letter
+    docx template file: no_conditional_payment_letter_template.docx
+buttons:
+  - Exit: exit
+  - Restart: restart
+decoration: HL_logo
+---
+question: |
+  On what date was the case settled?
+fields:
+  - 'MM': mm
+    datatype: integer
+  - 'DD': dd
+    datatype: integer
+  - 'YYYY': yyyy
+    datatype: integer
+decoration: HL_logo
+---
+question: |
+  Financial breakdown of the Final Settlement
+subquestion: |
+  We will need the:
+  a) total amount of Med-Pay or PIP;
+  b) amount of attorney fees paid by the beneficiary;
+  c) additional procurement expenses paid by the beneficiary; and
+  d) the total amount of the final settlement.
+  
+  **Be sure to use proper punctuation.**
+  
+  Good example: $40,000.00
+  
+  Bad example: 40000
+fields:
+  - 'Amount of Med-Pay / PIP': amount_of_medpay_pip
+  - 'Amount of Attorney Fees Paid': atty_fee_paid_by_bene
+  - 'Procurement Expenses': procurement_expenses_paid_by_bene
+  - 'Final Settlement Amount': settlement_amount
+decoration: HL_logo
+---
+question: |
+  Your document is ready!
+  
+  This is a school project for Coding the Law at Suffolk University Law School. You may address any questions about this program to Will Bean at lawclerk1@hoeylaw.com
+  
+  Thank you for using Docassemble.
+field: ending4
+attachment:
+  - name: MSPRC Final Settlement Detail Document
+    filename: MSPRC_Final_Settlement_Detail_Document
+    pdf template file: final_settlement.pdf
+    fields: 
+      "client_name": ${ client_name }
+      "HIC": ${ hic }
+      "date_of_injury": ${ date_of_injury }
+      "settlement_amount": ${ settlement_amount }
+      "amount_of_medpay_pip": ${ amount_of_medpay_pip }
+      "atty_fee_paid_by_bene": ${ atty_fee_paid_by_bene }
+      "procurement_expenses_paid_by_bene": ${ procurement_expenses_paid_by_bene }
+      "MM": ${ mm }
+      "DD": ${ dd }
+      "YYYY": ${ yyyy }
+      "date_of_injury": ${ date_of_injury }
+buttons:
+  - Exit: exit
+  - Restart: restart
+decoration: HL_logo
+---
