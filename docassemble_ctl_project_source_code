@@ -115,9 +115,6 @@ attachments:
   - name: Medicare Proof of Representation Letter
     filename: Medicare_Proof_of_Representation_doc
     docx template file: proof_of_rep_template.docx
-buttons:
-  - Exit: exit
-  - Restart: restart
 decoration: HL_logo
 ---
 question: |
@@ -142,9 +139,6 @@ attachment:
   - name: Medicare Contested Charges Response Letter
     filename: Medicare_Contested_Charges_Response
     docx template file: contested_charges_template.docx
-buttons:
-  - Exit: exit
-  - Restart: restart
 decoration: HL_logo
 ---
 question: |
@@ -165,9 +159,6 @@ attachment:
   - name: No Conditional Payment Letter
     filename: No_Conditional_Payment_Letter
     docx template file: no_conditional_payment_letter_template.docx
-buttons:
-  - Exit: exit
-  - Restart: restart
 decoration: HL_logo
 ---
 question: |
@@ -225,8 +216,10 @@ attachment:
       "DD": ${ dd }
       "YYYY": ${ yyyy }
       "date_of_injury": ${ date_of_injury }
-buttons:
-  - Exit: exit
-  - Restart: restart
 decoration: HL_logo
 ---
+question: Would you like to make another form or are you done?
+buttons:
+  - Another Form: restart
+  - I'm done!: exit
+mandatory: True
